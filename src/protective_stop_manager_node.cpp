@@ -100,8 +100,10 @@ void ProtectiveStopManager::recoverFromProtectiveStop(const std_srvs::srv::Trigg
 
     if (unlock_pstop_response_future.wait_for(kServiceCallTimeout) == std::future_status::timeout)
     {
-      const auto msg = std::string("Timed out waiting for response from `") + kUnlockProtectiveStopService +
-                       "`service. You may need to restart the robot drivers manually.";
+      const auto msg = std::string("⚠️ Reset Arm Error\nTimed out waiting for response from `") +
+                       kUnlockProtectiveStopService +
+                       "` service. You may need to start the robot on its teach pendant, reset its estop, "
+                       "or restart the robot drivers.";
       RCLCPP_ERROR_STREAM(kLogger, msg);
       response->success = false;
       response->message = msg;
