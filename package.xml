@@ -9,7 +9,7 @@
     stops when necessary.
   </description>
   <maintainer email="support@picknik.ai">MoveIt Pro Maintainer</maintainer>
-  <license>BSD 3-Clause</license>
+  <license>BSD-3-Clause</license>
 
   <buildtool_depend>ament_cmake_ros</buildtool_depend>
   <build_depend>moveit_pro_package</build_depend>
