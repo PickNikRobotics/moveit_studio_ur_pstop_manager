@@ -53,19 +53,19 @@ ProtectiveStopManager::ProtectiveStopManager(const rclcpp::NodeOptions& options)
         kRecoveryServiceName,
         [this](const std_srvs::srv::Trigger::Request::SharedPtr request,
                std_srvs::srv::Trigger::Response::SharedPtr response) { recoverFromProtectiveStop(request, response); },
-        rmw_qos_profile_services_default, reentrant_callback_group_))
+        rclcpp::ServicesQoS(), reentrant_callback_group_))
   , is_program_running_client_(create_client<ur_dashboard_msgs::srv::IsProgramRunning>(
-        kIsProgramRunningService, rmw_qos_profile_services_default, reentrant_callback_group_))
+        kIsProgramRunningService, rclcpp::ServicesQoS(), reentrant_callback_group_))
   , switch_controller_client_(create_client<SwitchController>(
-        kSwitchControllerService, rmw_qos_profile_services_default, reentrant_callback_group_))
+        kSwitchControllerService, rclcpp::ServicesQoS(), reentrant_callback_group_))
   , resend_program_client_(create_client<std_srvs::srv::Trigger>(
-        kResendRobotProgramService, rmw_qos_profile_services_default, reentrant_callback_group_))
-  , stop_program_client_(create_client<std_srvs::srv::Trigger>(kStopProgramService, rmw_qos_profile_services_default,
+        kResendRobotProgramService, rclcpp::ServicesQoS(), reentrant_callback_group_))
+  , stop_program_client_(create_client<std_srvs::srv::Trigger>(kStopProgramService, rclcpp::ServicesQoS(),
                                                                reentrant_callback_group_))
   , unlock_pstop_client_(create_client<std_srvs::srv::Trigger>(
-        kUnlockProtectiveStopService, rmw_qos_profile_services_default, reentrant_callback_group_))
+        kUnlockProtectiveStopService, rclcpp::ServicesQoS(), reentrant_callback_group_))
   , get_safety_mode_client_(create_client<ur_dashboard_msgs::srv::GetSafetyMode>(
-        kSafetyModeService, rmw_qos_profile_services_default, reentrant_callback_group_))
+        kSafetyModeService, rclcpp::ServicesQoS(), reentrant_callback_group_))
   , fault_status_publisher_(create_publisher<moveit_studio_agent_msgs::msg::FaultStatus>(kFaultStatusTopic, 1))
   , fault_status_timer_(create_wall_timer(kServiceCallTimeout, [this] { this->publishFaultStatus(); }))
 {
